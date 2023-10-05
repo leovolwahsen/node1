@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 import { Product } from "./models/productModule.js";
 dotenv.config();
 
-const { MONGODB_URI, MONGO_PW } = process.env;
+const { MONGODB_URI, MONGODB_PW } = process.env;
 const app = express();
 
 app.use(express.json());
@@ -46,8 +46,25 @@ app.post("/products", async (request, response) => {
     }
 });
 
+// Update the product
+app.put("/products/:id", async (request, response) => {
+    try {
+        const {id} = request.params;
+        const product = await Product.findByIdAndUpdate(id, request.body);
+
+        // can not find any product in database
+        if (!product) {
+            return response.status(404).json({message: `can not find any product with id = ${id}`});
+        };
+        const updatedProduct = await Product.findById(id);
+        response.status(200).json(updatedProduct);
+    } catch(error) {
+        response.status(500).json({message: error.message});
+    }
+});
+
 mongoose
-  .connect(`mongodb+srv://${MONGODB_URI}:${MONGO_PW}@cluster0.a8iwmib.mongodb.net/NodeAPI`)
+  .connect(`mongodb+srv://${MONGODB_URI}:${MONGODB_PW}@cluster0.a8iwmib.mongodb.net/NodeAPI`)
   .then(() => {
     console.log("connected to mongoDB");
     app.listen(3000, () => {
