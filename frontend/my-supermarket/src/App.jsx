@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import NavbarElement from "./components/Navbar";
 import axios from "axios";
 import "./App.css";
 
@@ -17,7 +19,9 @@ function App() {
   }, []);
 
   return (
-    <div>
+    <>
+    <NavbarElement />
+    <div id="main-container">
       <h1>Product List</h1>
       <ul>
         {products.map((product) => (
@@ -25,6 +29,7 @@ function App() {
         ))}
       </ul>
     </div>
+  </>
   );
 }
 
