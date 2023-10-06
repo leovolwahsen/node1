@@ -1,37 +1,51 @@
 import React, { useEffect, useState } from "react";
+import { Routes, Route } from "react-router-dom";
+import { Container } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import NavbarComponent from "./components/Navbar"
-import CardComponent from "./components/Card";
-import axios from "axios";
+import { Home } from "./pages/Home";
+import { About } from "./pages/About";
+import { Store } from "./pages/Store";
+import NavbarComponent from "./components/Navbar";
+// import CardComponent from "./components/Card";
+// import axios from "axios";
 import "./App.css";
 
 function App() {
-  const [products, setProducts] = useState([]);
+  // const [products, setProducts] = useState([]);
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:3000/products")
-      .then((response) => {
-        setProducts(response.data);
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get("http://localhost:3000/products")
+  //     .then((response) => {
+  //       setProducts(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //     });
+  // }, []);
 
   return (
     <>
-    <NavbarComponent />
-    <CardComponent products={products} />
-     <div id="main-container">
-      <h1>Product List</h1>
-      <ul>
-        {products.map((product) => (
-          <li key={product._id}>{product.name}</li>
-        ))}
-      </ul>
-    </div>
-  </>
+     <NavbarComponent />
+      <Container className="mb-4">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/store" element={<Store />} />
+          <Route path="/about" element={<About />} />
+
+        </Routes>
+        {/* <NavbarComponent />
+        <CardComponent products={products} />
+        <div id="main-container">
+          <h1>Product List</h1>
+          <ul>
+            {products.map((product) => (
+              <li key={product._id}>{product.name}</li>
+            ))}
+          </ul>
+        </div> */}
+      </Container>
+    </>
   );
 }
 
