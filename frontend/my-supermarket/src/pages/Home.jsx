@@ -1,3 +1,10 @@
-export function Home() {
-    return <h1>Home</h1>
+import CardComponent from "../components/Card";
+
+export function Home({ products }) {
+  return (
+    <>
+      <h1>About</h1>
+      <CardComponent products={products} />
+    </>
+  );
 }

@@ -6,7 +6,7 @@ import { Home } from "./pages/Home";
 import { About } from "./pages/About";
 import { Store } from "./pages/Store";
 import NavbarComponent from "./components/Navbar";
-import CardComponent from "./components/Card";
+
 import axios from "axios";
 import "./App.css";
 
@@ -29,11 +29,10 @@ function App() {
      <NavbarComponent />
       <Container className="mb-4">
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/store" element={<Store />} />
-          <Route path="/about" element={<About />} />
+          <Route path="/" element={<Home products={products} />} />
+          <Route path="/store" element={<Store products={products} />} />
+          <Route path="/about" element={<About products={products} />} />
         </Routes>
-        <CardComponent products={products} />
       </Container>
     </>
   );
