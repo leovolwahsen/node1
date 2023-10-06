@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import NavbarElement from "./components/Navbar";
+import NavbarComponent from "./components/Navbar"
+import CardComponent from "./components/Card";
 import axios from "axios";
 import "./App.css";
 
@@ -20,8 +21,9 @@ function App() {
 
   return (
     <>
-    <NavbarElement />
-    <div id="main-container">
+    <NavbarComponent />
+    <CardComponent products={products} />
+     <div id="main-container">
       <h1>Product List</h1>
       <ul>
         {products.map((product) => (
