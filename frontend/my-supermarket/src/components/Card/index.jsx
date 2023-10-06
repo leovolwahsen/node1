@@ -34,7 +34,7 @@ function CardComponent({ products }) {
             style={{ width: "100%" }}
             className="mt-auto"
           >
-            <Card.Img variant="top" src={product.image} />
+            <Card.Img variant="top" src={product.image} className="card-image" />
             <Card.Body>
               <Card.Title>{product.name}</Card.Title>
               <Card.Text>The cost is {formatCurrency(product.price)}</Card.Text>

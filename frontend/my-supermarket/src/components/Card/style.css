@@ -1,3 +1,8 @@
 html, body {
     background-color: lightgray;
 }
+
+.card-image {
+    width: "2rem";
+    height: "1.5rem";
+}
