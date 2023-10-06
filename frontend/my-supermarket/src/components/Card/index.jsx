@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import "./style.css";
+import { formatCurrency } from "../../utilities/formatCurrency";
 
 function CardComponent({ products }) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-
+    // setTimeout is used so that as long as data is fetched from API, it doesnt show an error before data is loaded. Makes for better UX.
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 2000);
@@ -31,7 +32,7 @@ function CardComponent({ products }) {
           <Card.Img variant="top" src={product.image} />
           <Card.Body>
             <Card.Title>{product.name}</Card.Title>
-            <Card.Text>{`The cost is ${product.price}€`}</Card.Text>
+            <Card.Text>The cost is {formatCurrency(product.price)}</Card.Text>
             <Button variant="primary">Add to shopping card</Button>
           </Card.Body>
         </Card>
