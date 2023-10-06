@@ -1,11 +1,14 @@
 import express from "express";
 import dotenv from "dotenv";
+import cors from "cors";
 import mongoose from "mongoose";
 import { Product } from "./models/productModule.js";
 dotenv.config();
 
 const { MONGODB_URI, MONGODB_PW } = process.env;
 const app = express();
+// CORS error fixed
+app.use(cors({ origin: "http://localhost:5173" }));
 
 app.use(express.json());
 

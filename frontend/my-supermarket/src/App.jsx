@@ -7,11 +7,11 @@ function App() {
 
   useEffect(() => {
     axios
-      .get("/products")
+      .get("http://localhost:3000/products")
       .then((response) => {
         setProducts(response.data);
       })
-      .catch((error) => {
+      .catch(error => {
         console.error(error);
       });
   }, []);
