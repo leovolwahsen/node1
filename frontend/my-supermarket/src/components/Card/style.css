@@ -1,8 +1,17 @@
 html, body {
     background-color: lightgray;
 }
+.mt-auto  {
+    background-color: rgb(160, 160, 160);
+}
 
 .card-image {
-    width: "2rem";
-    height: "1.5rem";
+    display: block;
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    margin: 0 auto;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 10px;
 }

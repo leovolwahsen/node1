@@ -66,6 +66,23 @@ app.put("/products/:id", async (request, response) => {
     }
 });
 
+app.delete("/products/:id", async (request, response) => {
+    try {
+        const {id} = request.params;
+        const product = await Product.findById(id);
+
+        // can not find any product in database
+        if (!product) {
+            return response.status(404).json({message: `Cannot find any product with id = ${id}`});
+        };
+
+        await Product.findByIdAndRemove(id);
+        response.status(200).json(product);
+    } catch(error) {
+        response.status(500).json({message: error.message});
+    }
+});
+
 mongoose
   .connect(`mongodb+srv://${MONGODB_URI}:${MONGODB_PW}@cluster0.a8iwmib.mongodb.net/NodeAPI`)
   .then(() => {
