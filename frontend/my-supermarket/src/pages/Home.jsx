@@ -4,7 +4,7 @@ export function Home({ products }) {
   return (
     <>
       <h1>Home</h1>
-      <CardComponent products={products} />
+      <CardComponent key={products._id} products={products} />
     </>
   );
 }
