@@ -7,6 +7,7 @@ import "./style.css";
 import { formatCurrency } from "../../utilities/formatCurrency";
 
 function CardComponent({ products }) {
+  const quantity = 1;
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -30,15 +31,47 @@ function CardComponent({ products }) {
     <Row>
       {products.map((product) => (
         <Col key={product._id} xs={12} sm={6} md={4} lg={3} className="mt-4">
-          <Card
-            style={{ width: "100%" }}
-            className="mt-auto"
-          >
-            <Card.Img variant="top" src={product.image} className="card-image" />
-            <Card.Body>
-              <Card.Title>{product.name}</Card.Title>
-              <Card.Text>The cost is {formatCurrency(product.price)}</Card.Text>
-              <Button variant="primary">Add to shopping card</Button>
+          <Card style={{ width: "100%" }} className="mt-auto">
+            <Card.Img
+              variant="top"
+              src={product.image}
+              className="card-image"
+            />
+            <Card.Body className="d-flex flex-column">
+              <Card.Title className="d-flex justify-content-between align-items-baseline mb-4">
+                <span className="fs-3">{product.name}</span>
+                <span className="ms-2 text-muted">
+                  {formatCurrency(product.price)}
+                </span>
+              </Card.Title>
+              {quantity === 0 ? (
+                <Button variant="primary" className="w-100">
+                  Add to shopping card
+                </Button>
+              ) : (
+                <div
+                  className="d-flex align-items-center flex-column"
+                  style={{ gap: "0.5rem" }}
+                >
+                  <div
+                    className="d-flex align-items-center justify-content-center"
+                    style={{ gap: "0.5rem" }}
+                  >
+                    <Button>-</Button>
+                    <div>
+                      <span className="fs-3">{quantity}</span> in cart
+                    </div>
+                    <Button>+</Button>
+                  </div>
+                  <Button
+                    variant="danger"
+                    size="sm"
+                    style={{ display: "block" }}
+                  >
+                    Remove
+                  </Button>
+                </div>
+              )}
             </Card.Body>
           </Card>
         </Col>
