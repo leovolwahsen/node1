@@ -4,6 +4,7 @@ import Navbar from "react-bootstrap/Navbar";
 import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
+import "./style.css";
 
 function NavbarComponent() {
   return (
@@ -19,26 +20,14 @@ function NavbarComponent() {
           </Nav>
         </Navbar.Collapse>
         <Button
-          style={{
-            width: "3rem",
-            height: "3rem",
-            position: "relative",
-          }}
+      
           variant="outlined-primary"
           className="rounded-circle"
         >
           <FontAwesomeIcon icon={faCartShopping}  />
           <div
             className="rounded-circle bg-danger d.flex justify-content-center align-item-center"
-            style={{
-              color: "white",
-              width: "1.5rem",
-              height: "1.5rem",
-              position: "absolute",
-              bottom: 0,
-              right: 0,
-              transform: "translate(25%, 25%)"
-            }}
+           
           >
             3
           </div>

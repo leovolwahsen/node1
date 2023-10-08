@@ -5,7 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Home } from "./pages/Home";
 import { About } from "./pages/About";
 import { Store } from "./pages/Store";
-import NavbarComponent from "./components/Navbar";
+import NavbarComponent from "./components/Navbar/index";
 import { ShoppingCartProvider } from "./context/ShoppingCartContext";
 import axios from "axios";
 import "./App.css";
