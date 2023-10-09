@@ -1,10 +1,10 @@
-import CardComponent from "../components/Card";
+import CartComponent from "../components/Cart";
 
 export function Store({ products }) {
   return (
     <>
       <h1>Store</h1>
-      <CardComponent key={products._id} products={products} />
+      <CartComponent key={products._id} products={products} />
     </>
   );
 }

@@ -7,7 +7,7 @@ import "./style.css";
 import { formatCurrency } from "../../utilities/formatCurrency";
 import { useShoppingCart } from "../../context/ShoppingCartContext";
 
-export function CardComponent({ products }) {
+export function CartComponent({ products }) {
   const {
     getItemQuantity,
     increaseCartQuantity,
@@ -101,4 +101,4 @@ export function CardComponent({ products }) {
   );
 }
 
-export default CardComponent;
+export default CartComponent;
