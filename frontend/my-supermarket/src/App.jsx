@@ -6,12 +6,13 @@ import { Home } from "./pages/Home";
 import { About } from "./pages/About";
 import { Store } from "./pages/Store";
 import NavbarComponent from "./components/Navbar/index";
-import { ShoppingCartProvider } from "./context/ShoppingCartContext";
 import axios from "axios";
 import "./App.css";
 
 function App() {
   const [products, setProducts] = useState([]);
+  // const [dataLocalStorage, setDataLocalStorage] = useState([]);
+  // console.log(localStorage)
 
   useEffect(() => {
     axios
@@ -26,16 +27,14 @@ function App() {
 
   return (
     <>
-      <ShoppingCartProvider>
-        <NavbarComponent />
-        <Container className="mb-4">
-          <Routes>
-            <Route path="/" element={<Home products={products} />} />
-            <Route path="/store" element={<Store products={products} />} />
-            <Route path="/about" element={<About />} />
-          </Routes>
-        </Container>
-      </ShoppingCartProvider>
+      <NavbarComponent />
+      <Container className="mb-4">
+        <Routes>
+          <Route path="/" element={<Home products={products} />} />
+          <Route path="/store" element={<Store products={products} />} />
+          <Route path="/about" element={<About />} />
+        </Routes>
+      </Container>
     </>
   );
 }

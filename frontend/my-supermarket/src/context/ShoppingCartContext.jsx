@@ -16,9 +16,9 @@ export function ShoppingCartProvider({ children }) {
     return cartItems.find((item) => item.id === id)?.quantity || 0;
   }
 
-  const openCart = () => setIsOpen(true)
-  const closeCart = () => setIsOpen(false)
-  
+  const openCart = () => setIsOpen(true);
+  const closeCart = () => setIsOpen(false);
+
   function increaseCartQuantity(id) {
     setCartItems((currentItems) => {
       const itemIndex = currentItems.findIndex((item) => item.id === id);
@@ -41,7 +41,7 @@ export function ShoppingCartProvider({ children }) {
       if (itemIndex !== -1) {
         const updatedItems = [...currentItems];
         if (updatedItems[itemIndex].quantity === 1) {
-          updatedItems.splice(itemIndex, 1); 
+          updatedItems.splice(itemIndex, 1);
         } else {
           updatedItems[itemIndex] = {
             ...updatedItems[itemIndex],
@@ -50,7 +50,7 @@ export function ShoppingCartProvider({ children }) {
         }
         return updatedItems;
       }
-      return currentItems; 
+      return currentItems;
     });
   }
 
@@ -69,11 +69,9 @@ export function ShoppingCartProvider({ children }) {
         removeFromCart,
         openCart,
         closeCart,
-        
       }}
     >
       {children}
-      {/* <ShoppingCart isOpen={isOpen} /> */}
     </ShoppingCartContext.Provider>
   );
 }

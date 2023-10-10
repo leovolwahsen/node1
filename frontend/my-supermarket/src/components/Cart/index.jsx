@@ -15,16 +15,36 @@ export function CartComponent({ products }) {
     removeFromCart,
   } = useShoppingCart();
 
+  const [cart, setCart] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // setTimeout is used so that as long as data is fetched from API, it doesnt show an error before data is loaded. Makes for better UX.
+    // Load cart data from localStorage
+    try{
+      const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
+    setCart(savedCart);
+    } catch (error) {
+      console.error("Error while loading chart data from localStorage:", error);
+    }
+    
+
+    // Simulate loading, you can remove this timeout in your real app
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 2000);
 
     return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    // Save cart data to localStorage whenever the cart changes
+    try {
+      localStorage.setItem("cart", JSON.stringify(cart));
+    } catch(error) {
+      console.error("Error saving cart data to localStorage:", error)
+    }
+    
+  }, [cart]);
 
   if (isLoading) {
     return <h1>Loading...</h1>;
@@ -34,16 +54,56 @@ export function CartComponent({ products }) {
     return <p>No products available.</p>;
   }
 
-  // ther are two return below since the quantity is checked
   return (
     <Row>
       {products.map((product) => {
-        // Here I get product's id
         const id = product._id;
-
-        // Get the quantity for this product
         const quantity = getItemQuantity(id);
-        
+
+        const addToCart = () => {
+          const existingProduct = cart.find((item) => item.id === id);
+
+          if (existingProduct) {
+            // If the product is already in the cart, update the quantity
+            setCart((prevCart) =>
+              prevCart.map((item) =>
+                item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+              )
+            );
+          } else {
+            // If the product is not in the cart, add it
+            setCart((prevCart) => [
+              ...prevCart,
+              { id, quantity: 1, ...product },
+            ]);
+          }
+        };
+
+        const removeFromCartHandler = () => {
+          // Remove the product from the cart
+          setCart((prevCart) => prevCart.filter((item) => item.id !== id));
+        };
+
+        const increaseQuantityHandler = () => {
+          // Increase the quantity of the product in the cart
+          setCart((prevCart) =>
+            prevCart.map((item) =>
+              item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+            )
+          );
+        };
+
+        const decreaseQuantityHandler = () => {
+          // Decrease the quantity of the product in the cart
+          setCart((prevCart) =>
+            prevCart.map((item) =>
+              item.id === id && item.quantity > 0
+                ? { ...item, quantity: item.quantity - 1 }
+                : item
+            )
+          );
+        };
+
         return (
           <Col key={id} xs={12} sm={6} md={4} lg={3} className="mt-4">
             <Card style={{ width: "100%" }} className="mt-auto">
@@ -76,11 +136,15 @@ export function CartComponent({ products }) {
                       className="d-flex align-items-center justify-content-center"
                       style={{ gap: "0.5rem" }}
                     >
-                      <Button onClick={() => decreaseCartQuantity(id)}>-</Button>
+                      <Button onClick={() => decreaseCartQuantity(id)}>
+                        -
+                      </Button>
                       <div>
                         <span className="fs-3">{quantity}</span> in cart
                       </div>
-                      <Button onClick={() => increaseCartQuantity(id)}>+</Button>
+                      <Button onClick={() => increaseCartQuantity(id)}>
+                        +
+                      </Button>
                     </div>
                     <Button
                       onClick={() => removeFromCart(id)}
